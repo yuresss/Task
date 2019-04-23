@@ -13,7 +13,6 @@ class AutorSearch extends Autor
     /**
      * {@inheritdoc}
      */
-    public $countBooks;
     public function rules()
     {
         return [
@@ -66,5 +65,9 @@ class AutorSearch extends Autor
             ->andFilterWhere(['like', 'biography', $this->biography]);
 
         return $dataProvider;
+    }
+    public function getAll()
+    {
+        return Autor::find()->all();
     }
 }
