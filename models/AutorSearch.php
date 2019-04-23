@@ -4,7 +4,6 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Autor;
 
 /**
  * AutorSearch represents the model behind the search form of `app\models\Autor`.
@@ -14,6 +13,7 @@ class AutorSearch extends Autor
     /**
      * {@inheritdoc}
      */
+    public $countBooks;
     public function rules()
     {
         return [
@@ -59,7 +59,7 @@ class AutorSearch extends Autor
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'birth' => $this->birth,
+            'birth' => $this->birth
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'birth',
             'biography:ntext',
+            ['attribute' => 'books','label' => 'Books', 'value'=>$model->getBooks()->count()],
         ],
     ]) ?>
 

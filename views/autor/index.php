@@ -26,11 +26,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
             ['attribute' => 'birth', 'format' => ['date', 'php:d.m.Y']],
             'biography:ntext',
-
+            [
+                'attribute'=>'books',
+                'label'=>'Books',
+                'value'=>function($model){
+                    return $model->getBooks()->count();
+                }
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

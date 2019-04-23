@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'year',
-            'autor_id',
+            //'autor' => $model->getAutor(),
+            ['attribute' => 'autor_id','label' => 'Autor', 'value'=>$model->getAutor()->one()->name],
             'edition',
             'description:ntext',
         ],
