@@ -1,5 +1,4 @@
 <?php
-//var_dump($autors); return;
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
@@ -14,7 +13,6 @@ $this->title = 'My Yii Application';
     <table class="body-content">
         <?php
             foreach ($autors as $autor){
-                //var_dump($autor->getBooks()); return;
                 include "intro_autor.php";
             } ?>
     </table>
