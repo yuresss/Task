@@ -31,6 +31,7 @@ class Autor extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'birth', 'biography'], 'required'],
+            [['birth'], 'safe'],
             ['birth', 'date', 'format' => 'php:d.m.Y'],
             [['biography'], 'string'],
             [['name'], 'string', 'max' => 255],

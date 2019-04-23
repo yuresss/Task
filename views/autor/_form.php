@@ -16,8 +16,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'birth')->widget(\yii\jui\DatePicker::class, [
         'language' => 'ru',
-        'dateFormat' => 'dd-MM-yyyy',
-    ]) ?> ?>
+        'dateFormat' => 'dd.MM.yyyy',
+    ]) ?>
 
     <?= $form->field($model, 'biography')->textarea(['rows' => 6]) ?>
 

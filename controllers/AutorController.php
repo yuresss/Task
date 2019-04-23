@@ -8,6 +8,7 @@ use app\models\AutorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\ActiveRecord;
 
 /**
  * AutorController implements the CRUD actions for Autor model.
@@ -66,6 +67,12 @@ class AutorController extends Controller
     {
         $model = new Autor();
 
+        $model->birth = Yii::$app->formatter->asDate($model->birth);
+        // Ставим обработчик который после успешной проверки данных в пользовательском формате вернет дату в формат для mysql
+        $model->on(ActiveRecord::EVENT_BEFORE_INSERT, function () use ($model) {
+            $model->birth = \DateTime::createFromFormat('d.m.Y', $model->birth)->format('Y-m-d');
+        });
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -85,6 +92,11 @@ class AutorController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->birth = Yii::$app->formatter->asDate($model->birth);
+        // Ставим обработчик который после успешной проверки данных в пользовательском формате вернет дату в формат для mysql
+        $model->on(ActiveRecord::EVENT_BEFORE_UPDATE, function () use ($model) {
+            $model->birth = \DateTime::createFromFormat('d.m.Y', $model->birth)->format('Y-m-d');
+        });
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

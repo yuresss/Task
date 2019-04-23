@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'birth',
+            ['attribute' => 'birth', 'format' => ['date', 'php:d.m.Y']],
             'biography:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],

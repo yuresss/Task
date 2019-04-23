@@ -10,11 +10,11 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property string $date
- * @property int $autor
+ * @property int $autor_id
  * @property string $edition
  * @property string $description
  *
- * @property Autor $autor0
+ * @property Autor $autor
  */
 class Book extends \yii\db\ActiveRecord
 {
@@ -32,12 +32,12 @@ class Book extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'autor'], 'required'],
+            [['name', 'autor_id'], 'required'],
             [['date'], 'safe'],
-            [['autor'], 'integer'],
+            [['autor_id'], 'integer'],
             [['description'], 'string'],
             [['name', 'edition'], 'string', 'max' => 255],
-            [['autor'], 'exist', 'skipOnError' => true, 'targetClass' => Autor::className(), 'targetAttribute' => ['autor' => 'id']],
+            [['autor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Autor::className(), 'targetAttribute' => ['autor_id' => 'id']],
         ];
     }
 
@@ -50,7 +50,7 @@ class Book extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'date' => 'Date',
-            'autor' => 'Autor',
+            'autor_id' => 'Autor ID',
             'edition' => 'Edition',
             'description' => 'Description',
         ];
@@ -59,8 +59,8 @@ class Book extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAutor0()
+    public function getAutor()
     {
-        return $this->hasOne(Autor::className(), ['id' => 'autor']);
+        return $this->hasOne(Autor::className(), ['id' => 'autor_id']);
     }
 }

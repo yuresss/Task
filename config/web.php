@@ -33,6 +33,14 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
+        'formatter' => [
+            'dateFormat' => 'd-M-Y',
+            'datetimeFormat' => 'd-M-Y H:i:s',
+            'timeFormat' => 'H:i:s',
+
+            'locale' => 'ru-RU', //your language locale
+            'defaultTimeZone' => 'Europe/Moscow', // time zone
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
