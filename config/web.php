@@ -4,7 +4,7 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id' => 'basic',
+    'id' => 'task',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -15,6 +15,9 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'nw7SnBvt-CnBSrU52ZLOOS0QUqcFDnl5',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+                ]
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -34,10 +37,9 @@ $config = [
             'useFileTransport' => true,
         ],
         'formatter' => [
-            'dateFormat' => 'd-M-Y',
-            'datetimeFormat' => 'd-M-Y H:i:s',
+            'dateFormat' => 'd.M.Y',
+            'datetimeFormat' => 'd.M.Y H:i:s',
             'timeFormat' => 'H:i:s',
-
             'locale' => 'ru-RU', //your language locale
             'defaultTimeZone' => 'Europe/Moscow', // time zone
         ],
@@ -51,14 +53,19 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
+  //          'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['api/v1/Autor', 'api/v1/Book']]
             ],
-        ],*/
-
+        ],
+    ],
+    'modules' => [
+        'v1' => [
+            'class' => 'app\api\modules\v1\Module',
+        ],
     ],
     'params' => $params,
 ];

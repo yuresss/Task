@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace api\modules\v1\models;
 
 use Yii;
 
@@ -32,6 +32,7 @@ class Book extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'autor_id'], 'required'],
+            [['date'], 'safe'],
             [['autor_id'], 'integer'],
             [['description'], 'string'],
             [['name', 'edition'], 'string', 'max' => 255],
