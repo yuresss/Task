@@ -2,7 +2,6 @@
 namespace app\api\modules\v1\controllers;
 
 use yii\rest\ActiveController;
-//use api\modules\v1\models\Book;
 use app\models\Book;
 use yii\web\Response;
 use yii\helpers\ArrayHelper;
@@ -23,15 +22,40 @@ class BookController extends ActiveController
             ],
         ]);
     }
+    // Возвращаем список книг
     public function actionList()
     {
         return Book::find()->all();
     }
+    // Возвращаем список книгу по ID
     public function actionById($id)
     {
         if (($book = Book::findOne($id)) !== null) {
             return $book;
         }
-        return 'not find';
+        return "{'error': 'does not exist'}";
     }
+    //
+    public function actionUpdate($id, $autor_id, $edition = null, $description = null)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+    // Удаляем книку с заданным ID
+    public function actionId($id)
+    {
+        if (($book = Book::findOne($id)) !== null) {
+            $book->delete();
+            return "{'status': 'success'}";
+        }
+        return "{'error': 'does not exist'}";
+    }
+
 }
