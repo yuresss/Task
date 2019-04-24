@@ -35,19 +35,37 @@ class BookController extends ActiveController
         }
         return "{'error': 'does not exist'}";
     }
-    //
-    public function actionUpdate($id, $autor_id, $edition = null, $description = null)
-    {
-        $model = $this->findModel($id);
+    // Не насторил, использовать нативный update от yii\rest\ActiveController
+/*    public function actionUpdate($id) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $claim = $this->findModel($id);
+        $claim->scenario = 'update';
+
+        if ( $claim->status_id == 1 ) {
+
+            $request = Yii::$app->request;
+
+            if (isset($request)) {
+
+                $name = $request->getBodyParam('name');
+                $edition = $request->getBodyParam('edition');
+                $description = $request->getBodyParam('description');
+                $autor_id = $request->getBodyParam('autor_id');
+
+                if ($claim->validate() ) {
+                    $claim->save();
+
+                    return array('id'=>$claim->id,'msg'=>'Successfully update claim');
+
+                } else {
+                    return (ActiveForm::validate($claim));
+                }
+            }
+        } else {
+            throw new \yii\web\MethodNotAllowedHttpException('You are not allowed to update data');
         }
+    }*/
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
     // Удаляем книку с заданным ID
     public function actionId($id)
     {
