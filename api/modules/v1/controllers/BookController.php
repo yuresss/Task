@@ -33,47 +33,41 @@ class BookController extends ActiveController
         if (($book = Book::findOne($id)) !== null) {
             return $book;
         }
-        return "{'error': 'does not exist'}";
+        throw new \yii\web\MethodNotAllowedHttpException('Element does not exist');
     }
-    // Не насторил, использовать нативный update от yii\rest\ActiveController
-/*    public function actionUpdate($id) {
 
-        $claim = $this->findModel($id);
-        $claim->scenario = 'update';
-
-        if ( $claim->status_id == 1 ) {
-
-            $request = Yii::$app->request;
-
-            if (isset($request)) {
-
-                $name = $request->getBodyParam('name');
-                $edition = $request->getBodyParam('edition');
-                $description = $request->getBodyParam('description');
-                $autor_id = $request->getBodyParam('autor_id');
-
-                if ($claim->validate() ) {
-                    $claim->save();
-
-                    return array('id'=>$claim->id,'msg'=>'Successfully update claim');
-
-                } else {
-                    return (ActiveForm::validate($claim));
-                }
-            }
-        } else {
-            throw new \yii\web\MethodNotAllowedHttpException('You are not allowed to update data');
+    // Test update
+    public function actionUpdate($id)
+    {
+        if (! Yii::$app->request->isPut) {
+            throw new \yii\web\MethodNotAllowedHttpException('Please use PUT');
         }
-    }*/
+        /** @var User $user */
+        if (($book = Book::findOne($id)) !== null) {
+            $model = new Book();
+
+            // populate model attributes with user inputs
+            $model->load(\Yii::$app->request->post());
+            // which is equivalent to the following:
+            // $model->attributes = \Yii::$app->request->post('name');
+
+            if ($model->validate()) {
+                return $book->save();
+            } else {
+                // validation failed: $errors is an array containing error messages
+                return $model->errors;
+            }
+        }
+        else throw new \yii\web\MethodNotAllowedHttpException('Element does not exist');
+    }
 
     // Удаляем книку с заданным ID
     public function actionId($id)
     {
         if (($book = Book::findOne($id)) !== null) {
-            $book->delete();
-            return "{'status': 'success'}";
+            return $book->delete();
         }
-        return "{'error': 'does not exist'}";
+        else throw new \yii\web\MethodNotAllowedHttpException('Element does not exist');
     }
 
 }
