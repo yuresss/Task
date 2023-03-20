@@ -82,7 +82,7 @@ http://localhost/basic/web/
 ~~~
 
 
-### Install with Docker
+### Install with Docker.  
 
 Update your vendor packages
 
