@@ -84,7 +84,7 @@ http://localhost/basic/web/
 
 ### Install with Docker
 
-Update your vendor packages
+Update your vendor packages.  
 
     docker-compose run --rm php composer update --prefer-dist
     
